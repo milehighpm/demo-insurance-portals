@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Demonstration Insurance Submission Portal (DEMO)</title>
+<link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+
+<div class="demo-banner" role="alert">
+  DEMONSTRATION PURPOSES ONLY. THIS IS NOT A REAL INSURANCE WEBSITE.
+  <small>Fictional company. Do not enter real personal, policy, or login information. Nothing you enter here is saved or sent anywhere.</small>
+</div>
+
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="#/" aria-label="Demonstration Insurance Underwriters home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3 6 10v12c0 11.5 7.7 20.4 18 23 10.3-2.6 18-11.5 18-23V10L24 3Z" fill="#fff"/><path d="M24 7.5 10 13v9c0 9.2 6 16.4 14 18.7 8-2.3 14-9.5 14-18.7v-9L24 7.5Z" fill="#2f8f83"/><text x="24" y="29" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#fff">DIU</text></svg>
+      <div class="name">Demonstration Insurance Underwriters <span class="demo-tag">DEMO</span><span>Submission Portal</span></div>
+    </a>
+    <div class="header-right" id="who" hidden>
+      <span>Signed in as <strong id="who-name"></strong></span>
+      <a href="#" data-signout>Sign out</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Page 1: username -->
+  <section data-step="login" data-title="Sign in" hidden>
+    <div class="card narrow">
+      <div class="step-label">Sign in</div>
+      <h1>Submission Portal</h1>
+      <p class="lede">Sign in with your username.</p>
+      <p class="inline-warning">Demo site. Any username works. Do not use a real username.</p>
+      <form id="username-form" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required>
+        </div>
+        <div class="error" aria-live="polite"></div>
+        <button type="submit" id="username-next">Next</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Page 2: password -->
+  <section data-step="password" data-title="Enter password" hidden>
+    <div class="card narrow">
+      <div class="step-label">Sign in</div>
+      <h1>Enter your password</h1>
+      <p class="lede">Signing in as <strong id="pw-user"></strong>. <a href="#/login">Not you?</a></p>
+      <p class="inline-warning">Demo site. Any password works and it is not checked or stored. Do not use a real password.</p>
+      <form id="password-form" novalidate>
+        <input type="text" name="username" autocomplete="username" hidden>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required>
+        </div>
+        <div class="error" aria-live="polite"></div>
+        <button type="submit" id="sign-in">Sign in</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Page 3: menu -->
+  <section data-step="menu" data-title="What would you like to do?" hidden>
+    <div class="card">
+      <div class="step-label">Welcome</div>
+      <h1>What would you like to do?</h1>
+      <p class="lede">Choose one option.</p>
+      <form id="menu-form" novalidate>
+        <div class="choices" role="radiogroup" aria-label="What would you like to do?">
+          <label class="choice"><input type="radio" name="task" value="upload"> Upload information about a policy</label>
+          <label class="choice"><input type="radio" name="task" value="download"> Download a policy document</label>
+          <label class="choice"><input type="radio" name="task" value="profile"> Update my information</label>
+        </div>
+        <div class="error" aria-live="polite"></div>
+        <div class="actions"><span></span><button type="submit" id="menu-continue">Continue</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Upload flow -->
+  <form id="submission" novalidate>
+
+  <!-- Page 4: policy information -->
+  <section data-step="policy" data-title="Policy information" hidden>
+    <div class="card">
+      <div class="step-label">Step 1 of 6 &middot; Policy information</div>
+      <div class="progress"><div style="width:16%"></div></div>
+      <h1>Policy information</h1>
+      <p class="inline-warning">For demonstration purposes only. Enter no actual data.</p>
+      <div class="field">
+        <label for="insured_name">Insured name</label>
+        <input type="text" id="insured_name" name="insured_name">
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="naics2">Insured 2-digit NAICS code</label>
+          <input type="text" id="naics2" name="naics2" inputmode="numeric" maxlength="2" placeholder="e.g. 44">
+        </div>
+        <div class="field">
+          <label for="carrier">Carrier</label>
+          <input type="text" id="carrier" name="carrier">
+        </div>
+        <div class="field">
+          <label for="policy_number">Policy number</label>
+          <input type="text" id="policy_number" name="policy_number">
+        </div>
+        <div class="field">
+          <label for="policy_type">Policy type</label>
+          <input type="text" id="policy_type" name="policy_type" placeholder="e.g. Commercial Package">
+        </div>
+        <div class="field">
+          <label for="policy_start">Policy start date</label>
+          <input type="date" id="policy_start" name="policy_start">
+        </div>
+        <div class="field">
+          <label for="policy_expiration">Policy expiration date</label>
+          <input type="date" id="policy_expiration" name="policy_expiration">
+        </div>
+      </div>
+      <div class="field">
+        <label for="total_premium">Total policy premium</label>
+        <div class="money"><input type="text" id="total_premium" name="total_premium" inputmode="decimal"></div>
+      </div>
+      <fieldset class="field" style="border:0;padding:0;margin:0 0 16px">
+        <legend style="font-weight:600;font-size:14px;margin-bottom:8px">Coverage parts <span class="hint">(select all that apply)</span></legend>
+        <div class="checks">
+          <label><input type="checkbox" name="coverage_parts" value="Group Auto"> Group auto</label>
+          <label><input type="checkbox" name="coverage_parts" value="Deluxe Property"> Deluxe property</label>
+          <label><input type="checkbox" name="coverage_parts" value="Employee Benefits"> Employee benefits</label>
+          <label><input type="checkbox" name="coverage_parts" value="Commercial General Liability"> Commercial general liability</label>
+          <label><input type="checkbox" name="coverage_parts" value="Inland Marine"> Inland marine</label>
+          <label><input type="checkbox" name="coverage_parts" value="Employee Benefits Liability (Claims Made)"> Employee benefits liability (claims made)</label>
+          <label><input type="checkbox" name="coverage_parts" value="Other"> Other</label>
+        </div>
+      </fieldset>
+      <div class="actions">
+        <button type="button" class="secondary" data-go="menu">Back</button>
+        <button type="button" data-go="property">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 5: commercial property -->
+  <section data-step="property" data-title="Commercial property details" hidden>
+    <div class="card">
+      <div class="step-label">Step 2 of 6 &middot; Commercial property</div>
+      <div class="progress"><div style="width:33%"></div></div>
+      <h1>Commercial property details</h1>
+      <p class="inline-warning">For demonstration purposes only. Enter no actual data.</p>
+      <div class="grid2">
+        <div class="field">
+          <label for="limit_bpp">Limit (Business and Personal Property, excluding Stock)</label>
+          <div class="money"><input type="text" id="limit_bpp" name="limit_bpp" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="limit_stock">Limit: Stock</label>
+          <div class="money"><input type="text" id="limit_stock" name="limit_stock" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="deductible_earthquake">Deductible: Earthquake</label>
+          <input type="text" id="deductible_earthquake" name="deductible_earthquake" placeholder="e.g. $25,000 or 5%">
+        </div>
+        <div class="field">
+          <label for="deductible_windstorm">Deductible: Windstorm</label>
+          <input type="text" id="deductible_windstorm" name="deductible_windstorm" placeholder="e.g. $10,000 or 2%">
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" data-go="policy">Back</button>
+        <button type="button" data-go="schedule">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 6: property schedule -->
+  <section data-step="schedule" data-title="Covered property schedule" hidden>
+    <div class="card">
+      <div class="step-label">Step 3 of 6 &middot; Property schedule</div>
+      <div class="progress"><div style="width:50%"></div></div>
+      <h1>Covered property schedule</h1>
+      <p class="lede">Please list the properties in the covered property schedule.</p>
+      <p class="inline-warning">For Demonstration Purposes Only. Enter no actual data.</p>
+      <div class="field">
+        <label for="property_schedule">Property schedule</label>
+        <textarea id="property_schedule" name="property_schedule" placeholder="One property per line, for example:&#10;Loc 1 / Bldg 1 - 100 Example St, Anytown, ST 00000 - Building $1,000,000 - BPP $250,000"></textarea>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" data-go="property">Back</button>
+        <button type="button" data-go="liability">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 7: CGL -->
+  <section data-step="liability" data-title="Commercial General Liability" hidden>
+    <div class="card">
+      <div class="step-label">Step 4 of 6 &middot; General liability</div>
+      <div class="progress"><div style="width:66%"></div></div>
+      <h1>Commercial General Liability</h1>
+      <p class="inline-warning">For demonstration purposes only. Enter no actual data.</p>
+      <div class="grid2">
+        <div class="field">
+          <label for="cgl_general_aggregate">General Aggregate</label>
+          <div class="money"><input type="text" id="cgl_general_aggregate" name="cgl_general_aggregate" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="cgl_products_aggregate">Products-Completed Operations Aggregate</label>
+          <div class="money"><input type="text" id="cgl_products_aggregate" name="cgl_products_aggregate" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="cgl_each_occurrence">Each Occurrence</label>
+          <div class="money"><input type="text" id="cgl_each_occurrence" name="cgl_each_occurrence" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="cgl_personal_advertising">Personal &amp; Advertising Injury</label>
+          <div class="money"><input type="text" id="cgl_personal_advertising" name="cgl_personal_advertising" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="cgl_damage_premises">Damage to Premises Rented To You</label>
+          <div class="money"><input type="text" id="cgl_damage_premises" name="cgl_damage_premises" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="cgl_medical_expense">Medical Expense (any one person)</label>
+          <div class="money"><input type="text" id="cgl_medical_expense" name="cgl_medical_expense" inputmode="decimal"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" data-go="schedule">Back</button>
+        <button type="button" data-go="upload">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 8: upload -->
+  <section data-step="upload" data-title="Upload the policy" hidden>
+    <div class="card">
+      <div class="step-label">Step 5 of 6 &middot; Upload</div>
+      <div class="progress"><div style="width:83%"></div></div>
+      <h1>Upload the policy</h1>
+      <p class="inline-warning">Demo site. Files stay in your browser and are not uploaded anywhere. Do not upload real documents.</p>
+      <div class="dropzone" id="dropzone">
+        <p><strong>Drag a file here</strong> or choose one below.</p>
+        <label for="policy_file" class="btn secondary" style="display:inline-block;margin:0">Choose file</label>
+        <input type="file" id="policy_file" name="policy_file" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.tif,.tiff" style="position:absolute;width:1px;height:1px;opacity:0">
+        <p class="hint" style="margin:10px 0 0">PDF, Word, or image files.</p>
+      </div>
+      <ul class="file-list" id="file-list"></ul>
+      <div class="error" id="upload-error" aria-live="polite" style="margin-top:12px"></div>
+      <div class="actions">
+        <button type="button" class="secondary" data-go="liability">Back</button>
+        <button type="submit" id="submit-submission">Submit</button>
+      </div>
+    </div>
+  </section>
+
+  </form>
+
+  <!-- Page 9: thank you -->
+  <section data-step="done" data-title="Thank you" hidden>
+    <div class="card">
+      <div class="step-label">Step 6 of 6 &middot; Done</div>
+      <div class="progress"><div style="width:100%"></div></div>
+      <h1>Thank You!</h1>
+      <p class="lede">Your submission has been received. (Demo: nothing was actually sent.)</p>
+      <div>Your Submission Confirmation Number is</div>
+      <div class="confirm-number" id="confirmation-number">345-AFT-512561-PP</div>
+      <form id="email-form" novalidate>
+        <div class="field">
+          <label for="copy_email">Enter your email to receive a copy of this submission</label>
+          <input type="email" id="copy_email" name="copy_email" autocomplete="off" placeholder="name@example.com">
+        </div>
+        <div class="error" aria-live="polite"></div>
+        <button type="submit" id="send-copy">Send me a copy</button>
+        <p class="success" id="email-sent" hidden style="margin-top:14px">Demo only: no email was sent. In a real portal a copy would go to <span id="email-sent-to"></span>.</p>
+      </form>
+      <details open>
+        <summary>What you submitted</summary>
+        <dl class="summary" id="submission-summary" style="margin-top:12px"></dl>
+      </details>
+      <div class="actions">
+        <span></span>
+        <button type="button" class="secondary" id="start-over">Back to start</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Side page: download -->
+  <section data-step="download" data-title="Download a policy document" hidden>
+    <div class="card">
+      <div class="step-label">Documents</div>
+      <h1>Download a policy document</h1>
+      <p class="inline-warning">Demo documents only. They contain no real policy data.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Document</th><th>Policy number</th><th>Issued</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Commercial Package Policy (sample)</td><td class="nowrap">DEMO-CPP-000123</td><td class="nowrap">01/01/2026</td><td><button type="button" class="secondary" data-doc="DEMO-CPP-000123">Download</button></td></tr>
+            <tr><td>Certificate of Insurance (sample)</td><td class="nowrap">DEMO-CPP-000123</td><td class="nowrap">01/05/2026</td><td><button type="button" class="secondary" data-doc="DEMO-COI-000123">Download</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions"><button type="button" class="secondary" data-go="menu">Back</button><span></span></div>
+    </div>
+  </section>
+
+  <!-- Side page: update my information -->
+  <section data-step="profile" data-title="Update my information" hidden>
+    <div class="card">
+      <div class="step-label">Profile</div>
+      <h1>Update my information</h1>
+      <p class="inline-warning">For demonstration purposes only. Enter no actual data.</p>
+      <form data-demo-save novalidate>
+        <div class="grid2">
+          <div class="field"><label for="p_name">Full name</label><input type="text" id="p_name" name="p_name"></div>
+          <div class="field"><label for="p_agency">Agency</label><input type="text" id="p_agency" name="p_agency"></div>
+          <div class="field"><label for="p_email">Email</label><input type="email" id="p_email" name="p_email"></div>
+          <div class="field"><label for="p_phone">Phone</label><input type="text" id="p_phone" name="p_phone"></div>
+        </div>
+        <p class="success" hidden>Saved. (Demo: nothing was actually saved.)</p>
+        <div class="actions"><button type="button" class="secondary" data-go="menu">Back</button><button type="submit">Save</button></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <strong>Demonstration only.</strong> Demonstration Insurance Underwriters is a fictional company. This is not a real insurance website and it does not collect, store, or send any information.
+</footer>
+
+<script src="../shared/common.js"></script>
+<script>
+(function () {
+  var P = window.DemoPortal;
+  var form = document.getElementById('submission');
+  var files = [];
+  var fileInput = document.getElementById('policy_file');
+  var list = document.getElementById('file-list');
+  var drop = document.getElementById('dropzone');
+
+  function renderFiles() {
+    list.innerHTML = '';
+    files.forEach(function (f, i) {
+      var li = document.createElement('li');
+      var kb = Math.max(1, Math.round(f.size / 1024));
+      li.innerHTML = '<span></span><button type="button" class="secondary" style="padding:2px 10px">Remove</button>';
+      li.firstChild.textContent = f.name + ' (' + kb + ' KB)';
+      li.lastChild.addEventListener('click', function () { files.splice(i, 1); renderFiles(); });
+      list.appendChild(li);
+    });
+    if (files.length) document.getElementById('upload-error').textContent = '';
+  }
+  function addFiles(fl) { Array.prototype.forEach.call(fl, function (f) { files.push(f); }); renderFiles(); }
+  fileInput.addEventListener('change', function () { addFiles(fileInput.files); fileInput.value = ''; });
+  ['dragenter', 'dragover'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function (e) { addFiles(e.dataTransfer.files); });
+
+  // Enter in a text field moves to the next page instead of submitting the whole form early.
+  form.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+      e.preventDefault();
+      var next = e.target.closest('section').querySelector('.actions [data-go]:last-child');
+      if (next) next.click();
+    }
+  });
+
+  var LABELS = [
+    ['insured_name', 'Insured name'], ['naics2', 'NAICS (2-digit)'], ['carrier', 'Carrier'],
+    ['policy_number', 'Policy number'], ['policy_type', 'Policy type'],
+    ['policy_start', 'Policy start date'], ['policy_expiration', 'Policy expiration date'],
+    ['total_premium', 'Total policy premium', '$'], ['coverage_parts', 'Coverage parts'],
+    ['limit_bpp', 'Limit (BPP, excl. Stock)', '$'], ['limit_stock', 'Limit: Stock', '$'],
+    ['deductible_earthquake', 'Deductible: Earthquake'], ['deductible_windstorm', 'Deductible: Windstorm'],
+    ['property_schedule', 'Property schedule'],
+    ['cgl_general_aggregate', 'General Aggregate', '$'], ['cgl_products_aggregate', 'Products-Completed Ops Aggregate', '$'],
+    ['cgl_each_occurrence', 'Each Occurrence', '$'], ['cgl_personal_advertising', 'Personal & Advertising Injury', '$'],
+    ['cgl_damage_premises', 'Damage to Premises Rented', '$'], ['cgl_medical_expense', 'Medical Expense', '$']
+  ];
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!files.length) { document.getElementById('upload-error').textContent = 'Upload the policy to submit.'; return; }
+    var dl = document.getElementById('submission-summary');
+    dl.innerHTML = '';
+    var fd = new FormData(form);
+    LABELS.forEach(function (l) {
+      var v = l[0] === 'coverage_parts' ? fd.getAll('coverage_parts').join(', ') : (fd.get(l[0]) || '').toString().trim();
+      if (v && l[2] === '$' && v.charAt(0) !== '$') v = '$' + v;
+      var dt = document.createElement('dt'); dt.textContent = l[1];
+      var dd = document.createElement('dd'); dd.textContent = v || '(blank)';
+      dl.appendChild(dt); dl.appendChild(dd);
+    });
+    var dt = document.createElement('dt'); dt.textContent = 'Uploaded file';
+    var dd = document.createElement('dd'); dd.textContent = files.map(function (f) { return f.name; }).join(', ');
+    dl.appendChild(dt); dl.appendChild(dd);
+    P.go('done');
+  });
+
+  document.getElementById('email-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, v = f.copy_email.value.trim(), err = f.querySelector('.error');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { err.textContent = 'Enter an email address.'; return; }
+    err.textContent = '';
+    document.getElementById('email-sent-to').textContent = v;
+    document.getElementById('email-sent').hidden = false;
+  });
+
+  function reset() {
+    form.reset(); files = []; renderFiles();
+    document.getElementById('email-form').reset();
+    document.getElementById('email-sent').hidden = true;
+    var m = document.getElementById('menu-form'); m.reset();
+  }
+  document.getElementById('start-over').addEventListener('click', function () { reset(); P.go('menu'); });
+
+  document.getElementById('menu-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = (e.target.task.value || '');
+    var err = e.target.querySelector('.error');
+    if (!v) { err.textContent = 'Choose an option to continue.'; return; }
+    err.textContent = '';
+    P.go(v === 'upload' ? 'policy' : v);
+  });
+
+  document.querySelectorAll('[data-doc]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var id = b.getAttribute('data-doc');
+      P.download(id + '-DEMO.txt',
+        'DEMONSTRATION DOCUMENT - NOT A REAL INSURANCE POLICY\n\n' +
+        'Demonstration Insurance Underwriters (fictional)\n' +
+        'Document: ' + id + '\n\n' +
+        'This file exists only to demonstrate downloading a document from a portal.\n' +
+        'It contains no real policy, insured, or coverage information.\n');
+    });
+  });
+
+  P.init({
+    key: 'diu-submission',
+    siteTitle: 'Demonstration Insurance Submission Portal',
+    publicSteps: ['login', 'password'],
+    home: 'menu',
+    onSignOut: reset,
+    onShow: function (id) {
+      // Pages after Upload only make sense once something was submitted.
+      if (id === 'done' && !document.getElementById('submission-summary').children.length) P.go('menu');
+    }
+  });
+  P.wireSignIn();
+  P.wireDemoForms();
+})();
+</script>
+</body>
+</html>

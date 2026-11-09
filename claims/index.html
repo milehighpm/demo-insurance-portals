@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Demonstration Insurance Claims Portal (DEMO)</title>
+<link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+
+<div class="demo-banner" role="alert">
+  DEMONSTRATION PURPOSES ONLY. THIS IS NOT A REAL INSURANCE WEBSITE.
+  <small>Fictional company. Do not enter real personal, policy, or login information. Nothing you enter here is saved or sent anywhere.</small>
+</div>
+
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="#/" aria-label="Demonstration Insurance Underwriters home">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3 6 10v12c0 11.5 7.7 20.4 18 23 10.3-2.6 18-11.5 18-23V10L24 3Z" fill="#fff"/><path d="M24 7.5 10 13v9c0 9.2 6 16.4 14 18.7 8-2.3 14-9.5 14-18.7v-9L24 7.5Z" fill="#2f8f83"/><text x="24" y="29" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#fff">DIU</text></svg>
+      <div class="name">Demonstration Insurance Underwriters <span class="demo-tag">DEMO</span><span>Claims Portal</span></div>
+    </a>
+    <div class="header-right" id="who" hidden>
+      <span>Signed in as <strong id="who-name"></strong></span>
+      <a href="#" data-signout>Sign out</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Page 1: username -->
+  <section data-step="login" data-title="Sign in" hidden>
+    <div class="card narrow">
+      <div class="step-label">Sign in</div>
+      <h1>Claims Portal</h1>
+      <p class="lede">Sign in with your username.</p>
+      <p class="inline-warning">Demo site. Any username works. Do not use a real username.</p>
+      <form id="username-form" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" autocomplete="username" required>
+        </div>
+        <div class="error" aria-live="polite"></div>
+        <button type="submit" id="username-next">Next</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Page 2: password -->
+  <section data-step="password" data-title="Enter password" hidden>
+    <div class="card narrow">
+      <div class="step-label">Sign in</div>
+      <h1>Enter your password</h1>
+      <p class="lede">Signing in as <strong id="pw-user"></strong>. <a href="#/login">Not you?</a></p>
+      <p class="inline-warning">Demo site. Any password works and it is not checked or stored. Do not use a real password.</p>
+      <form id="password-form" novalidate>
+        <input type="text" name="username" autocomplete="username" hidden>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required>
+        </div>
+        <div class="error" aria-live="polite"></div>
+        <button type="submit" id="sign-in">Sign in</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Page 3: menu -->
+  <section data-step="menu" data-title="What would you like to do?" hidden>
+    <div class="card">
+      <div class="step-label">Welcome</div>
+      <h1>What would you like to do?</h1>
+      <p class="lede">Choose one option.</p>
+      <form id="menu-form" novalidate>
+        <div class="choices" role="radiogroup" aria-label="What would you like to do?">
+          <label class="choice"><input type="radio" name="task" value="claims"> View existing claims information</label>
+          <label class="choice"><input type="radio" name="task" value="new-claim"> Submit a new claim</label>
+          <label class="choice"><input type="radio" name="task" value="profile"> Update your Profile</label>
+          <label class="choice"><input type="radio" name="task" value="support"> Contact Support</label>
+        </div>
+        <div class="error" aria-live="polite"></div>
+        <div class="actions"><span></span><button type="submit" id="menu-continue">Continue</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Page 4: claims information -->
+  <section data-step="claims" data-title="Claims Information" hidden>
+    <div class="card wide">
+      <div class="step-label">Claims</div>
+      <h1>Claims Information</h1>
+      <p class="inline-warning">Sample claims for demonstration only. None of these are real claims.</p>
+      <div class="toolbar">
+        <span class="hint" id="claims-count"></span>
+        <button type="button" class="secondary" id="export-csv">Download as CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table id="claims-table">
+          <thead>
+            <tr>
+              <th scope="col">Claim Number</th>
+              <th scope="col">Date of Loss</th>
+              <th scope="col">Line of Business</th>
+              <th scope="col">Loss Description</th>
+              <th scope="col">Status</th>
+              <th scope="col" class="num">Amount Paid</th>
+            </tr>
+          </thead>
+          <tbody id="claims-body"></tbody>
+        </table>
+      </div>
+      <div class="actions"><button type="button" class="secondary" data-go="menu">Back</button><span></span></div>
+    </div>
+  </section>
+
+  <!-- Side page: new claim -->
+  <section data-step="new-claim" data-title="Submit a new claim" hidden>
+    <div class="card">
+      <div class="step-label">Claims</div>
+      <h1>Submit a new claim</h1>
+      <p class="inline-warning">For demonstration purposes only. Enter no actual data.</p>
+      <form id="new-claim-form" novalidate>
+        <div class="grid2">
+          <div class="field"><label for="c_policy">Policy number</label><input type="text" id="c_policy" name="c_policy"></div>
+          <div class="field"><label for="c_date">Date of loss</label><input type="date" id="c_date" name="c_date"></div>
+          <div class="field">
+            <label for="c_lob">Line of business</label>
+            <select id="c_lob" name="c_lob">
+              <option value="">Choose one</option>
+              <option>Commercial Auto</option><option>Homeowners</option><option>General Liability</option>
+              <option>Workers' Compensation</option><option>Commercial Property</option><option>Personal Auto</option>
+              <option>Professional Liability (E&amp;O)</option><option>Cyber Liability</option><option>Inland Marine</option>
+              <option>Business Owners Policy (BOP)</option>
+            </select>
+          </div>
+          <div class="field"><label for="c_contact">Contact phone</label><input type="text" id="c_contact" name="c_contact"></div>
+        </div>
+        <div class="field"><label for="c_desc">Loss description</label><textarea id="c_desc" name="c_desc" style="min-height:120px;font-family:inherit"></textarea></div>
+        <p class="success" id="claim-submitted" hidden>Claim submitted. Your demo claim number is <strong>CLM-2026-014000</strong>. (Demo: nothing was actually sent.)</p>
+        <div class="actions"><button type="button" class="secondary" data-go="menu">Back</button><button type="submit">Submit claim</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Side page: profile -->
+  <section data-step="profile" data-title="Update your Profile" hidden>
+    <div class="card">
+      <div class="step-label">Profile</div>
+      <h1>Update your Profile</h1>
+      <p class="inline-warning">For demonstration purposes only. Enter no actual data.</p>
+      <form data-demo-save novalidate>
+        <div class="grid2">
+          <div class="field"><label for="p_name">Full name</label><input type="text" id="p_name" name="p_name"></div>
+          <div class="field"><label for="p_company">Company</label><input type="text" id="p_company" name="p_company"></div>
+          <div class="field"><label for="p_email">Email</label><input type="email" id="p_email" name="p_email"></div>
+          <div class="field"><label for="p_phone">Phone</label><input type="text" id="p_phone" name="p_phone"></div>
+        </div>
+        <p class="success" hidden>Saved. (Demo: nothing was actually saved.)</p>
+        <div class="actions"><button type="button" class="secondary" data-go="menu">Back</button><button type="submit">Save</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Side page: support -->
+  <section data-step="support" data-title="Contact Support" hidden>
+    <div class="card">
+      <div class="step-label">Support</div>
+      <h1>Contact Support</h1>
+      <p class="inline-warning">This is a demonstration site. There is no real support team behind it.</p>
+      <form data-demo-save novalidate>
+        <div class="field"><label for="s_subject">Subject</label><input type="text" id="s_subject" name="s_subject"></div>
+        <div class="field"><label for="s_message">Message</label><textarea id="s_message" name="s_message" style="min-height:140px;font-family:inherit"></textarea></div>
+        <p class="success" hidden>Message received. (Demo: nothing was actually sent.)</p>
+        <div class="actions"><button type="button" class="secondary" data-go="menu">Back</button><button type="submit">Send message</button></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <strong>Demonstration only.</strong> Demonstration Insurance Underwriters is a fictional company. This is not a real insurance website and it does not collect, store, or send any information.
+</footer>
+
+<script src="../shared/common.js"></script>
+<script>
+(function () {
+  var P = window.DemoPortal;
+  var CLAIMS = [
+    ['CLM-2026-004817', '01/14/2026', 'Commercial Auto', 'Rear-end collision at intersection, delivery van', 'Closed', 8450.00],
+    ['CLM-2026-005302', '02/03/2026', 'Homeowners', 'Burst pipe in upstairs bathroom, water damage to ceiling and flooring', 'Closed', 22175.36],
+    ['CLM-2026-006129', '02/27/2026', 'General Liability', 'Customer slip-and-fall in retail store entrance', 'Open - In Litigation', 15000.00],
+    ['CLM-2026-007744', '03/18/2026', "Workers' Compensation", 'Employee back strain while lifting inventory', 'Open', 6892.50],
+    ['CLM-2026-008051', '04/02/2026', 'Commercial Property', 'Wind damage to roof and HVAC unit during storm', 'Closed', 41300.00],
+    ['CLM-2026-009386', '05/11/2026', 'Personal Auto', 'Windshield cracked by road debris on freeway', 'Closed', 612.00],
+    ['CLM-2026-010247', '06/09/2026', 'Professional Liability (E&O)', 'Client alleges missed filing deadline caused financial loss', 'Under Review', 0.00],
+    ['CLM-2026-011583', '07/22/2026', 'Cyber Liability', 'Ransomware attack encrypting company file server', 'Open', 37640.00],
+    ['CLM-2026-012905', '08/30/2026', 'Inland Marine', 'Theft of contractor equipment from job site', 'Denied', 5736.00],
+    ['CLM-2026-013472', '09/16/2026', 'Business Owners Policy (BOP)', 'Kitchen fire in restaurant, smoke damage and business interruption', 'Open - Reserve Set', 58210.75]
+  ];
+  function money(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function statusClass(s) {
+    if (/litigation/i.test(s)) return 's-lit';
+    if (/^open/i.test(s)) return 's-open';
+    if (/review/i.test(s)) return 's-review';
+    if (/denied/i.test(s)) return 's-denied';
+    return 's-closed';
+  }
+  var body = document.getElementById('claims-body');
+  CLAIMS.forEach(function (c) {
+    var tr = document.createElement('tr');
+    [c[0], c[1], c[2], c[3]].forEach(function (v, i) {
+      var td = document.createElement('td'); td.textContent = v;
+      if (i < 2) td.className = 'nowrap';
+      tr.appendChild(td);
+    });
+    var st = document.createElement('td');
+    var pill = document.createElement('span'); pill.className = 'status ' + statusClass(c[4]); pill.textContent = c[4];
+    st.appendChild(pill); tr.appendChild(st);
+    var amt = document.createElement('td'); amt.className = 'num'; amt.textContent = money(c[5]); tr.appendChild(amt);
+    body.appendChild(tr);
+  });
+  document.getElementById('claims-count').textContent = CLAIMS.length + ' claims';
+
+  document.getElementById('export-csv').addEventListener('click', function () {
+    function q(v) { v = String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+    var rows = [['Claim Number', 'Date of Loss', 'Line of Business', 'Loss Description', 'Status', 'Amount Paid']]
+      .concat(CLAIMS.map(function (c) { return [c[0], c[1], c[2], c[3], c[4], c[5].toFixed(2)]; }));
+    P.download('DEMO-claims.csv', rows.map(function (r) { return r.map(q).join(','); }).join('\n') + '\n', 'text/csv');
+  });
+
+  document.getElementById('menu-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = e.target.task.value || '';
+    var err = e.target.querySelector('.error');
+    if (!v) { err.textContent = 'Choose an option to continue.'; return; }
+    err.textContent = '';
+    P.go(v);
+  });
+
+  document.getElementById('new-claim-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('claim-submitted').hidden = false;
+  });
+
+  P.init({
+    key: 'diu-claims',
+    siteTitle: 'Demonstration Insurance Claims Portal',
+    publicSteps: ['login', 'password'],
+    home: 'menu',
+    onSignOut: function () {
+      document.querySelectorAll('form').forEach(function (f) { f.reset(); });
+      document.querySelectorAll('.success').forEach(function (s) { s.hidden = true; });
+    }
+  });
+  P.wireSignIn();
+  P.wireDemoForms();
+})();
+</script>
+</body>
+</html>
